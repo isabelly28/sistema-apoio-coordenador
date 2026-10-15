@@ -8,8 +8,6 @@ Protótipo web acadêmico para facilitar a consulta de dúvidas frequentes dos a
 3. Abra o arquivo `index.html` em um navegador moderno.
 4. Não é necessário instalar dependências para executar o protótipo localmente.
 
-> Para testar, baixe o repositório pelo botão **Code → Download ZIP** no GitHub. Abrir o HTML diretamente no GitHub não executa a aplicação como um site.
-
 ## Telas e funcionalidades
 - **Abertura:** apresentação do sistema e botão para começar.
 - **Início do aluno:** perguntas frequentes, categorias e campo de busca.
