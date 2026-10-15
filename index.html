@@ -1,46 +1,140 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sistema de Apoio ao Coordenador | Anhanguera</title>
-<style>
-:root{--o:#f47721;--od:#d85f0b;--ink:#292929;--muted:#686868;--line:#e8e8e8;--bg:#f7f7f8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}.primary{background:var(--o);color:white}.outline{background:white;color:var(--od);border:1px solid var(--o)}.quiet{background:#eee}.top{background:white;border-bottom:4px solid var(--o);padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.brand{font-size:22px;font-weight:bold}.brand small{display:block;font-size:10px;color:#777;margin-top:4px}.nav{display:flex;gap:8px;flex-wrap:wrap}.wrap{width:min(1050px,92%);margin:28px auto 60px}.screen{display:none}.screen.active{display:block}.hero,.panel,.card,.stat{background:white;border:1px solid var(--line);border-radius:16px;padding:24px}.hero{background:linear-gradient(120deg,#fff,#fff0e5);padding:38px}.eyebrow{color:var(--od);font-size:12px;font-weight:bold;letter-spacing:1px;text-transform:uppercase}h1{font-size:clamp(28px,4vw,42px);margin:12px 0}h2{font-size:24px}p{line-height:1.65;color:var(--muted)}.search{display:flex;gap:10px;margin:20px 0}.field{width:100%;padding:12px;border:1px solid #d5d5d5;border-radius:9px;background:white}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.category{display:inline-block;border-radius:30px;background:#fff0e5;color:#a94700;padding:6px 10px;font-size:11px;font-weight:bold;margin-bottom:10px}.card h3{font-size:17px;line-height:1.4}.link{padding:5px 0;background:transparent;color:var(--od)}.muted{color:var(--muted)}.back{background:transparent;padding:0;margin-bottom:16px}.formgroup{margin:15px 0}.formgroup label{display:block;font-size:13px;font-weight:bold;margin-bottom:7px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:20px 0}.stat strong{display:block;font-size:30px;margin-top:8px}.tablewrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;min-width:500px}td,th{text-align:left;padding:13px;border-bottom:1px solid var(--line)}th{background:#fafafa}.notice{background:#fff4e9;border:1px solid #ffdfc4;padding:12px;border-radius:9px;font-size:13px}.actions{display:flex;gap:6px;flex-wrap:wrap}.actions button{padding:8px;font-size:12px}.footer{text-align:center;color:#777;font-size:12px;padding:25px}.hidden{display:none!important}#toast{position:fixed;bottom:18px;right:18px;background:#222;color:#fff;padding:13px 18px;border-radius:9px;display:none}@media(max-width:700px){.grid{grid-template-columns:1fr}.hero{padding:25px}.search{flex-direction:column}.top{padding:14px}.nav button{padding:9px}.stats{grid-template-columns:1fr}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Protótipo acadêmico do Sistema de Apoio ao Coordenador.">
+  <title>Sistema de Apoio ao Coordenador | Anhanguera</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/app.js" defer></script>
 </head>
 <body>
-<header class="top"><div class="brand">🟠 Anhanguera<small>SISTEMA DE APOIO AO COORDENADOR</small></div><nav class="nav"><button class="quiet" onclick="go('home')">Início</button><button class="quiet" onclick="go('home');document.getElementById('search').focus()">Buscar dúvidas</button><button class="outline" onclick="go('login')">Área do coordenador</button></nav></header>
-<main class="wrap">
-<section id="home" class="screen active"><div class="hero"><div class="eyebrow">Informação fácil, sempre à mão</div><h1>Olá! Como podemos ajudar você?</h1><p>Encontre respostas para dúvidas sobre prazos, documentos, horários, provas e procedimentos acadêmicos.</p><button class="primary" onclick="document.getElementById('search').focus()">Encontrar uma resposta ↓</button></div><h2>Encontre sua dúvida</h2><p>Digite uma palavra-chave ou escolha uma pergunta abaixo.</p><div class="search"><input id="search" class="field" placeholder="Ex.: prova, declaração, horário, prazo..." oninput="renderQuestions()"><button class="primary" onclick="renderQuestions()">Buscar</button></div><div id="question-grid" class="grid"></div></section>
-<section id="answer" class="screen"><button class="back" onclick="go('home')">← Voltar para as perguntas</button><article class="panel"><span id="answer-category" class="category"></span><h1 id="answer-title"></h1><div id="answer-body"></div><p class="muted">As orientações podem variar conforme o curso e a unidade. Confirme informações nos canais oficiais da instituição.</p><button class="primary" onclick="go('home')">Voltar à busca</button></article></section>
-<section id="login" class="screen"><button class="back" onclick="go('home')">← Voltar ao início</button><div class="panel" style="max-width:460px;margin:20px auto"><div class="eyebrow">Acesso restrito</div><h1>Área do coordenador</h1><p>Entre para gerenciar as perguntas e respostas.</p><form id="login-form"><div class="formgroup"><label for="email">E-mail</label><input class="field" id="email" type="email" required placeholder="coordenador@anhanguera.com"></div><div class="formgroup"><label for="password">Senha</label><input class="field" id="password" type="password" required placeholder="Digite sua senha"></div><p id="login-error" class="notice hidden"></p><button class="primary" style="width:100%">Entrar</button></form><p class="notice">Demonstração: <b>coordenador@anhanguera.com</b> / senha <b>123456</b>. Não use este login em um sistema real.</p></div></section>
-<section id="dashboard" class="screen"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><div class="eyebrow">Painel administrativo</div><h1>Bem-vindo(a), coordenador!</h1><p>Gerencie as informações disponíveis para os alunos.</p></div><button class="outline" onclick="logout()">Sair</button></div><div class="stats"><div class="stat"><span>Total de perguntas</span><strong id="stat-total">0</strong></div><div class="stat"><span>Categorias</span><strong id="stat-categories">0</strong></div></div><div class="grid"><div class="card"><h3>Gerenciar perguntas</h3><p>Consulte, edite ou remova perguntas.</p><button class="primary" onclick="go('manage')">Abrir gerenciamento</button></div><div class="card"><h3>Nova pergunta</h3><p>Cadastre uma dúvida frequente.</p><button class="outline" onclick="newQuestion()">Cadastrar pergunta</button></div><div class="card"><h3>Área do aluno</h3><p>Confira a página inicial.</p><button class="quiet" onclick="go('home')">Ver página inicial</button></div></div></section>
-<section id="manage" class="screen"><button class="back" onclick="go('dashboard')">← Voltar ao painel</button><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><h1>Gerenciar perguntas</h1><button class="primary" onclick="newQuestion()">＋ Nova pergunta</button></div><input id="manage-search" class="field" placeholder="Filtrar perguntas..." oninput="renderManage()"><p id="manage-count" class="muted"></p><div class="tablewrap"><table><thead><tr><th>Pergunta</th><th>Categoria</th><th>Ações</th></tr></thead><tbody id="manage-body"></tbody></table></div></section>
-<section id="editor" class="screen"><button class="back" onclick="go('manage')">← Voltar ao gerenciamento</button><div class="panel" style="max-width:720px;margin:auto"><div class="eyebrow">Cadastro de conteúdo</div><h1 id="editor-heading">Nova pergunta</h1><form id="question-form"><input type="hidden" id="q-id"><div class="formgroup"><label for="q-title">Pergunta</label><input class="field" id="q-title" required maxlength="180"></div><div class="formgroup"><label for="q-category">Categoria</label><select class="field" id="q-category"><option>Prazos</option><option>Documentos</option><option>Horários</option><option>Provas e atividades</option><option>Procedimentos acadêmicos</option><option>Outros</option></select></div><div class="formgroup"><label for="q-answer">Resposta</label><textarea class="field" id="q-answer" rows="7" required></textarea></div><button class="primary">Salvar pergunta</button> <button type="button" onclick="go('manage')">Cancelar</button></form></div></section>
-</main><footer class="footer">Projeto acadêmico — Sistema de Apoio ao Coordenador · Protótipo demonstrativo</footer><div id="toast"></div>
-<script>
-const initialQuestions=[
-{id:1,category:"Prazos",title:"Onde consulto os prazos das atividades?",answer:"Consulte o calendário acadêmico e os avisos no ambiente virtual de aprendizagem. Verifique também a data de entrega informada na disciplina. Se houver divergência, procure o professor ou a coordenação."},
-{id:2,category:"Documentos",title:"Como solicito uma declaração de matrícula?",answer:"Solicite pelos canais oficiais de atendimento ao aluno ou pelo portal acadêmico, quando disponível. Confira o prazo de emissão e como obter o documento."},
-{id:3,category:"Horários",title:"Onde vejo meu horário de aulas?",answer:"Consulte a grade de horários no portal ou ambiente virtual da instituição. Confira os comunicados mais recentes do seu curso."},
-{id:4,category:"Provas e atividades",title:"Como verifico as datas das provas?",answer:"Confira o calendário da disciplina, os avisos do professor e as informações no ambiente virtual. Em caso de dúvida, entre em contato com o professor ou a coordenação."},
-{id:5,category:"Procedimentos acadêmicos",title:"O que fazer se eu perder uma atividade?",answer:"Leia as regras da disciplina e os comunicados sobre atividades substitutivas ou segunda chamada. Os procedimentos e prazos podem variar."},
-{id:6,category:"Documentos",title:"Como atualizo meus dados cadastrais?",answer:"Entre no portal acadêmico e verifique a área de dados pessoais. Se não for possível alterar diretamente, solicite atualização ao atendimento da instituição."}];
-let questions=loadQuestions();
-function loadQuestions(){try{return JSON.parse(localStorage.getItem("sac_questions"))||initialQuestions.slice()}catch(e){return initialQuestions.slice()}}
-function saveQuestions(){localStorage.setItem("sac_questions",JSON.stringify(questions))}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function go(id){if(["dashboard","manage","editor"].includes(id)&&sessionStorage.getItem("sac_logged")!=="yes")id="login";document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0);if(id==="home")renderQuestions();if(id==="dashboard")renderStats();if(id==="manage")renderManage()}
-function renderQuestions(){const term=(document.getElementById("search")?.value||"").trim().toLocaleLowerCase("pt-BR");const found=questions.filter(x=>(x.title+" "+x.category+" "+x.answer).toLocaleLowerCase("pt-BR").includes(term));document.getElementById("question-grid").innerHTML=found.length?found.map(x=>'<article class="card"><span class="category">'+esc(x.category)+'</span><h3>'+esc(x.title)+'</h3><p>'+esc(x.answer.slice(0,115))+(x.answer.length>115?"…":"")+'</p><button class="link" onclick="showAnswer('+x.id+')">Ler resposta →</button></article>').join(""):'<div class="card">Nenhuma pergunta encontrada.</div>'}
-function showAnswer(id){const x=questions.find(q=>q.id===id);if(!x)return;document.getElementById("answer-category").textContent=x.category;document.getElementById("answer-title").textContent=x.title;document.getElementById("answer-body").textContent=x.answer;go("answer")}
-document.getElementById("login-form").addEventListener("submit",e=>{e.preventDefault();const ok=document.getElementById("email").value.trim().toLowerCase()==="coordenador@anhanguera.com"&&document.getElementById("password").value==="123456";if(ok){sessionStorage.setItem("sac_logged","yes");document.getElementById("login-error").classList.add("hidden");e.target.reset();go("dashboard")}else{document.getElementById("login-error").textContent="E-mail ou senha incorretos. Use os dados de demonstração abaixo.";document.getElementById("login-error").classList.remove("hidden")}});
-function logout(){sessionStorage.removeItem("sac_logged");go("home");toast("Você saiu da área do coordenador.")}
-function renderStats(){document.getElementById("stat-total").textContent=questions.length;document.getElementById("stat-categories").textContent=new Set(questions.map(x=>x.category)).size}
-function renderManage(){const term=(document.getElementById("manage-search").value||"").toLocaleLowerCase("pt-BR");const found=questions.filter(x=>(x.title+" "+x.category).toLocaleLowerCase("pt-BR").includes(term));document.getElementById("manage-count").textContent=found.length+" pergunta(s)";document.getElementById("manage-body").innerHTML=found.length?found.map(x=>'<tr><td>'+esc(x.title)+'</td><td>'+esc(x.category)+'</td><td><div class="actions"><button class="outline" onclick="editQuestion('+x.id+')">Editar</button><button style="background:#fff0f0;color:#c83232" onclick="deleteQuestion('+x.id+')">Excluir</button></div></td></tr>').join(""):'<tr><td colspan="3">Nenhuma pergunta encontrada.</td></tr>'}
-function newQuestion(){document.getElementById("question-form").reset();document.getElementById("q-id").value="";document.getElementById("editor-heading").textContent="Nova pergunta";go("editor")}
-function editQuestion(id){const x=questions.find(q=>q.id===id);if(!x)return;document.getElementById("q-id").value=x.id;document.getElementById("q-title").value=x.title;document.getElementById("q-category").value=x.category;document.getElementById("q-answer").value=x.answer;document.getElementById("editor-heading").textContent="Editar pergunta";go("editor")}
-document.getElementById("question-form").addEventListener("submit",e=>{e.preventDefault();const id=Number(document.getElementById("q-id").value);const item={id:id||Date.now(),title:document.getElementById("q-title").value.trim(),category:document.getElementById("q-category").value,answer:document.getElementById("q-answer").value.trim()};questions=id?questions.map(x=>x.id===id?item:x):[item,...questions];saveQuestions();go("manage");toast(id?"Pergunta atualizada!":"Pergunta cadastrada!")});
-function deleteQuestion(id){const x=questions.find(q=>q.id===id);if(x&&confirm('Deseja excluir a pergunta "'+x.title+'"?')){questions=questions.filter(q=>q.id!==id);saveQuestions();renderManage();renderStats();toast("Pergunta excluída.")}}
-function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.style.display="block";setTimeout(()=>el.style.display="none",2500)}
-renderQuestions();
-</script></body></html>
+  <header class="topbar">
+    <a class="brand" href="#" onclick="go('inicio');return false" aria-label="Sistema de Apoio ao Coordenador - início">
+      <span class="brand-mark">A</span><span><strong>Anhanguera</strong><small>SISTEMA DE APOIO AO COORDENADOR</small></span>
+    </a>
+    <nav class="nav" aria-label="Navegação principal">
+      <button class="btn btn-light" onclick="go('inicio')">Início</button>
+      <button class="btn btn-light" onclick="go('inicio');focusSearch()">Buscar dúvidas</button>
+      <button class="btn btn-outline" onclick="go('login')">Área do coordenador</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="abertura" class="screen active">
+      <div class="splash">
+        <span class="eyebrow">Faculdade Anhanguera</span>
+        <div class="splash-logo">A</div>
+        <h1>Sistema de Apoio ao Coordenador</h1>
+        <p>Informações acadêmicas mais simples, rápidas e organizadas para os alunos.</p>
+        <button class="btn btn-primary btn-large" onclick="go('inicio')">Começar <span aria-hidden="true">→</span></button>
+        <p class="small-note">Protótipo acadêmico demonstrativo</p>
+      </div>
+    </section>
+
+    <section id="inicio" class="screen">
+      <div class="hero">
+        <span class="eyebrow">Área do aluno</span>
+        <h1>Olá! Como podemos ajudar você?</h1>
+        <p>Encontre orientações sobre prazos, documentos, horários, provas e procedimentos acadêmicos.</p>
+        <button class="btn btn-primary" onclick="focusSearch()">Encontrar uma resposta ↓</button>
+      </div>
+      <div class="section-heading"><div><span class="eyebrow">Central de informações</span><h2>Encontre sua dúvida</h2></div></div>
+      <form id="home-search-form" class="searchbar">
+        <label class="sr-only" for="home-search">Digite sua dúvida</label>
+        <input id="home-search" class="field" placeholder="Ex.: prova, declaração, horário, prazo..." autocomplete="off">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+      </form>
+      <h3 class="subheading">Categorias</h3>
+      <div id="category-list" class="category-list"></div>
+      <div class="section-heading"><h2>Perguntas frequentes</h2><button class="text-button" onclick="showAllResults()">Ver todas →</button></div>
+      <div id="home-questions" class="card-grid"></div>
+    </section>
+
+    <section id="resultados" class="screen">
+      <button class="back-link" onclick="go('inicio')">← Voltar ao início</button>
+      <span class="eyebrow">Consulta de dúvidas</span>
+      <h1>Resultados da busca</h1>
+      <form id="results-search-form" class="searchbar">
+        <label class="sr-only" for="results-search">Pesquisar dúvidas</label>
+        <input id="results-search" class="field" placeholder="Digite uma palavra-chave...">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+      </form>
+      <p id="results-summary" class="muted"></p>
+      <div id="results-list" class="card-grid"></div>
+    </section>
+
+    <section id="resposta" class="screen">
+      <button class="back-link" onclick="go('resultados')">← Voltar aos resultados</button>
+      <article class="answer-panel">
+        <span id="answer-category" class="pill"></span>
+        <h1 id="answer-title"></h1>
+        <div id="answer-body" class="answer-body"></div>
+        <div class="info-note">As orientações podem variar conforme o curso e a unidade. Em caso de dúvida, confirme as informações nos canais oficiais da instituição.</div>
+        <div class="answer-actions"><button class="btn btn-primary" onclick="go('inicio')">Voltar ao início</button><button class="btn btn-outline" onclick="go('login')">Preciso de mais ajuda</button></div>
+      </article>
+    </section>
+
+    <section id="login" class="screen">
+      <button class="back-link" onclick="go('inicio')">← Voltar ao início</button>
+      <div class="form-panel narrow">
+        <span class="eyebrow">Acesso administrativo</span>
+        <h1>Área do coordenador</h1>
+        <p>Entre para gerenciar as perguntas e respostas disponíveis aos alunos.</p>
+        <form id="login-form">
+          <div class="form-group"><label for="login-email">E-mail</label><input id="login-email" class="field" type="email" required autocomplete="username" placeholder="coordenador@anhanguera.com"></div>
+          <div class="form-group"><label for="login-password">Senha</label><input id="login-password" class="field" type="password" required autocomplete="current-password" placeholder="Digite sua senha"></div>
+          <p id="login-error" class="error-message hidden" role="alert"></p>
+          <button class="btn btn-primary full-width" type="submit">Entrar</button>
+        </form>
+        <div class="info-note"><strong>Acesso para demonstração</strong><br>E-mail: coordenador@anhanguera.com<br>Senha: 123456<br><span class="muted">Credenciais ilustrativas; não representam autenticação segura.</span></div>
+      </div>
+    </section>
+
+    <section id="painel" class="screen">
+      <div class="page-title-row"><div><span class="eyebrow">Área administrativa</span><h1>Olá, coordenador!</h1><p>Gerencie as informações que ajudam os alunos no dia a dia.</p></div><button class="btn btn-outline" onclick="logout()">Sair</button></div>
+      <div class="stats-grid"><article class="stat-card"><span>Total de perguntas</span><strong id="stat-total">0</strong><small>Informações cadastradas</small></article><article class="stat-card"><span>Categorias ativas</span><strong id="stat-categories">0</strong><small>Assuntos organizados</small></article></div>
+      <div class="card-grid admin-grid">
+        <article class="feature-card"><span class="feature-icon">☷</span><h2>Gerenciar perguntas</h2><p>Consulte, atualize ou remova as dúvidas frequentes.</p><button class="btn btn-primary" onclick="go('gerenciar')">Abrir gerenciamento</button></article>
+        <article class="feature-card"><span class="feature-icon">＋</span><h2>Cadastrar pergunta</h2><p>Adicione uma pergunta e sua resposta para os alunos.</p><button class="btn btn-outline" onclick="newQuestion()">Nova pergunta</button></article>
+        <article class="feature-card"><span class="feature-icon">⌂</span><h2>Visualizar área do aluno</h2><p>Confira como as informações aparecem para os estudantes.</p><button class="btn btn-light" onclick="go('inicio')">Ver página do aluno</button></article>
+      </div>
+    </section>
+
+    <section id="gerenciar" class="screen">
+      <button class="back-link" onclick="go('painel')">← Voltar ao painel</button>
+      <div class="page-title-row"><div><span class="eyebrow">Conteúdo acadêmico</span><h1>Gerenciar perguntas</h1><p>Organize as dúvidas e mantenha as respostas atualizadas.</p></div><button class="btn btn-primary" onclick="newQuestion()">＋ Nova pergunta</button></div>
+      <label class="sr-only" for="manage-search">Filtrar perguntas cadastradas</label><input id="manage-search" class="field" placeholder="Filtrar por pergunta ou categoria...">
+      <p id="manage-count" class="muted"></p>
+      <div class="table-wrap"><table><thead><tr><th>Pergunta</th><th>Categoria</th><th>Ações</th></tr></thead><tbody id="manage-body"></tbody></table></div>
+      <p class="small-note">As alterações deste protótipo são salvas no armazenamento local deste navegador.</p>
+    </section>
+
+    <section id="nova-pergunta" class="screen">
+      <button class="back-link" onclick="go('gerenciar')">← Voltar ao gerenciamento</button>
+      <div class="form-panel"><span class="eyebrow">Cadastro de conteúdo</span><h1>Nova pergunta</h1><p>Preencha os campos para disponibilizar uma nova orientação aos alunos.</p>
+        <form id="new-question-form">
+          <div class="form-group"><label for="new-title">Pergunta</label><input id="new-title" class="field" maxlength="180" required placeholder="Escreva a dúvida do aluno"></div>
+          <div class="form-group"><label for="new-category">Categoria</label><select id="new-category" class="field"><option>Prazos</option><option>Documentos</option><option>Horários</option><option>Provas e atividades</option><option>Procedimentos acadêmicos</option><option>Outros</option></select></div>
+          <div class="form-group"><label for="new-answer">Resposta</label><textarea id="new-answer" class="field" rows="6" required placeholder="Escreva uma resposta clara e objetiva"></textarea></div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Salvar pergunta</button><button class="btn btn-light" type="button" onclick="go('gerenciar')">Cancelar</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="editar-pergunta" class="screen">
+      <button class="back-link" onclick="go('gerenciar')">← Voltar ao gerenciamento</button>
+      <div class="form-panel"><span class="eyebrow">Atualização de conteúdo</span><h1>Editar pergunta</h1><p>Altere os campos necessários e salve as atualizações.</p>
+        <form id="edit-question-form"><input id="edit-id" type="hidden">
+          <div class="form-group"><label for="edit-title">Pergunta</label><input id="edit-title" class="field" maxlength="180" required></div>
+          <div class="form-group"><label for="edit-category">Categoria</label><select id="edit-category" class="field"><option>Prazos</option><option>Documentos</option><option>Horários</option><option>Provas e atividades</option><option>Procedimentos acadêmicos</option><option>Outros</option></select></div>
+          <div class="form-group"><label for="edit-answer">Resposta</label><textarea id="edit-answer" class="field" rows="6" required></textarea></div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Salvar alterações</button><button class="btn btn-light" type="button" onclick="go('gerenciar')">Cancelar</button></div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><strong>Sistema de Apoio ao Coordenador</strong><span>Projeto acadêmico demonstrativo · Faculdade Anhanguera</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
