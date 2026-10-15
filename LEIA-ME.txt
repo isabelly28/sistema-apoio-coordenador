@@ -1,19 +1,38 @@
 SISTEMA DE APOIO AO COORDENADOR — PROTÓTIPO ACADÊMICO
 
 COMO EXECUTAR
-1. Baixe o arquivo index.html ou clone/baixe este repositório.
-2. Abra index.html no navegador.
-3. Não é necessária instalação de programas adicionais para executar o protótipo.
+1. Baixe o repositório pelo GitHub em Code > Download ZIP.
+2. Extraia a pasta do projeto sem alterar a estrutura das pastas.
+3. Abra index.html em um navegador moderno.
+4. Os arquivos css/estilo.css e js/app.js devem permanecer em suas respectivas pastas.
+
+TELAS DO PROTÓTIPO
+00 — Abertura
+01 — Início do aluno
+02 — Busca e resultados
+03 — Resposta da dúvida
+04 — Login do coordenador
+05 — Painel administrativo
+06 — Gerenciamento de perguntas
+07 — Cadastro de nova pergunta
+08 — Edição de pergunta
 
 LOGIN DE DEMONSTRAÇÃO
 E-mail: coordenador@anhanguera.com
 Senha: 123456
 
 FUNCIONALIDADES
-- Busca de perguntas e respostas frequentes.
-- Área demonstrativa do coordenador.
-- Cadastro, edição e exclusão de perguntas.
-- Dados salvos no armazenamento local do navegador.
+- Busca por palavras-chave e categorias.
+- Visualização de respostas completas.
+- Login demonstrativo.
+- Painel com contagem de perguntas e categorias.
+- Cadastro, filtro, edição e exclusão de perguntas.
+- Salvamento local no navegador usando localStorage.
+
+ESTRUTURA DOS ARQUIVOS
+index.html — estrutura das telas.
+css/estilo.css — estilos e layout responsivo.
+js/app.js — navegação e funcionalidades.
 
 IMPORTANTE
-Este projeto é um protótipo front-end. O login não é seguro para uso real e as perguntas ficam armazenadas apenas no navegador atual. Não existe backend ou banco de dados compartilhado.
+Este projeto é um protótipo front-end acadêmico. O login é demonstrativo e não oferece autenticação segura. As perguntas ficam salvas apenas no navegador atual; não há backend nem banco de dados compartilhado. Para uso real, seriam necessários servidor, banco de dados e autenticação segura.
