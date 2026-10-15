@@ -1,0 +1,19 @@
+SISTEMA DE APOIO AO COORDENADOR — PROTÓTIPO ACADÊMICO
+
+COMO EXECUTAR
+1. Baixe o arquivo index.html ou clone/baixe este repositório.
+2. Abra index.html no navegador.
+3. Não é necessária instalação de programas adicionais para executar o protótipo.
+
+LOGIN DE DEMONSTRAÇÃO
+E-mail: coordenador@anhanguera.com
+Senha: 123456
+
+FUNCIONALIDADES
+- Busca de perguntas e respostas frequentes.
+- Área demonstrativa do coordenador.
+- Cadastro, edição e exclusão de perguntas.
+- Dados salvos no armazenamento local do navegador.
+
+IMPORTANTE
+Este projeto é um protótipo front-end. O login não é seguro para uso real e as perguntas ficam armazenadas apenas no navegador atual. Não existe backend ou banco de dados compartilhado.
